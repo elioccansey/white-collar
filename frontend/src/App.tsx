@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>White Collar App</h1>
+      <h1 className="text-3xl  underline">White Collar App</h1>
     </>
   );
 }
