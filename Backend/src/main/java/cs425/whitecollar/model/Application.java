@@ -13,4 +13,5 @@ public class Application {
     private Applicant applicant;
     @ManyToOne
     private Job job;
+    private  ApplicationStatus status;
 }
