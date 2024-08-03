@@ -1,10 +1,12 @@
+import { Outlet } from "react-router";
+import Header from "./layouts/header";
+
 function App() {
   return (
-    <>
-      <h1 className="text-3xl text-violet underline text-sm">
-        The quick Kumbh Sans devjob brown Collar App
-      </h1>
-    </>
+    <div className="bg-gray-light">
+      <Header />
+      <Outlet />
+    </div>
   );
 }
 
