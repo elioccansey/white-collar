@@ -34,6 +34,11 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findById(id).map(jobDTOMapper);
     }
 
+    @Override
+    public JobDTO addJob(Job job) {
+        Job savedJob = jobRepository.save(job);
+        return jobDTOMapper.apply(savedJob);
+    }
 
 
     @Override
@@ -46,4 +51,28 @@ public class JobServiceImpl implements JobService {
             return Optional.empty();
         }
     }
+
+
+    public void applyForJob(Long jobId, Long applicantId) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        User applicant = userRepository.findById(applicantId)
+                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+
+        //my todo
+//        job.getApplicants().add(applicant);
+        jobRepository.save(job);
+    }
+
+    public void cancelApplication(Long jobId, Long applicantId) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        User applicant = userRepository.findById(applicantId)
+                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+
+        //my todo
+        job.getApplicants().remove(applicant);
+        jobRepository.save(job);
+    }
+
 }

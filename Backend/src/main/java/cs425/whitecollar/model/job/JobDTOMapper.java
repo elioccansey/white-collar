@@ -23,10 +23,8 @@ public class JobDTOMapper implements Function<Job, JobDTO> {
         jobDTO.setRequireTechnicalSkills(job.getRequireTechnicalSkills());
         jobDTO.setRequireSoftSkills(job.getRequireSoftSkills());
         jobDTO.setBenefits(job.getBenefits());
-        jobDTO.setEmployer(job.getEmployer() != null ? job.getEmployer().getEmployerName() : null);
-        jobDTO.setApplicants(job.getApplicants() != null ?
-                job.getApplicants().stream().map(Applicant::getUserId).collect(Collectors.toList()) : null);
-        return jobDTO;
+        jobDTO.setEmployerId(job.getEmployer() != null ? job.getEmployer().getUserId() : null);
+         return jobDTO;
     }
 
     @Override

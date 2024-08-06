@@ -46,4 +46,9 @@ public class ApplicationServiceImpl implements ApplicationService {
             throw new IllegalArgumentException("Applicant not found with email: " + email);
         }
     }
+
+    @Override
+    public ApplicationDTO cancelApplication(Principal principal, Long applicantId) {
+        return null;
+    }
 }

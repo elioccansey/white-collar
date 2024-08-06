@@ -1,6 +1,6 @@
 package cs425.whitecollar.previlege;
 
-import cs425.whitecollar.model.role.UserRole;
+import cs425.whitecollar.model.user.role.UserRole;
 import jakarta.persistence.*;
 
 import java.util.Collection;

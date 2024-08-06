@@ -1,6 +1,6 @@
 package cs425.whitecollar.model.application;
 
-import cs425.whitecollar.model.applicationStatus.ApplicationStatus;
+import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
 import lombok.Data;
 
 import java.time.LocalDate;

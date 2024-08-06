@@ -1,10 +1,15 @@
 package cs425.whitecollar.model.address;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
+@Table(name = "addresses")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

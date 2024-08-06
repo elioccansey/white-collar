@@ -1,4 +1,4 @@
-package cs425.whitecollar.model.role;
+package cs425.whitecollar.model.user.role;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import cs425.whitecollar.model.user.User;
@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name="UserRole")
+@Table(name="roles")
 public class UserRole {
 
     @Id

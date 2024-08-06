@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/jobs")
+@RequestMapping("/api/v1/jobs")
 public class JobController {
 
     @Autowired
@@ -19,6 +19,13 @@ public class JobController {
     @GetMapping
     public ResponseEntity<Collection<JobDTO>> getAllJobs() {
         return new ResponseEntity<>(jobService.getAllJobs(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<JobDTO> addJob(@RequestBody Job job) {
+        JobDTO jobDTO = jobService.addJob(job);
+        return new ResponseEntity<>(jobDTO, HttpStatus.CREATED);
+
     }
 
     @GetMapping("/{id}")
@@ -36,4 +43,19 @@ public class JobController {
                 .map(deletedReview -> new ResponseEntity<>(deletedReview, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+
+    @PostMapping("/{jobId}/apply/{applicantId}")
+    public ResponseEntity<String> applyForJob(@PathVariable Long jobId, @PathVariable Long applicantId) {
+        jobService.applyForJob(jobId, applicantId);
+        return new ResponseEntity<>("Application submitted successfully.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{jobId}/cancel/{applicantId}")
+    public ResponseEntity<String> cancelApplication(@PathVariable Long jobId, @PathVariable Long applicantId) {
+        jobService.cancelApplication(jobId, applicantId);
+        return new ResponseEntity<>("Application canceled successfully.", HttpStatus.OK);
+    }
+
+
 }

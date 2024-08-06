@@ -13,4 +13,10 @@ public interface JobService {
     public  Collection<JobDTO> getAllJobs();
 
     public Optional<JobDTO> getJobById(Long id);
+
+    JobDTO addJob(Job job);
+
+    void cancelApplication(Long jobId, Long applicantId);
+
+    void applyForJob(Long jobId, Long applicantId);
 }

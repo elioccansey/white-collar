@@ -1,4 +1,4 @@
-package cs425.whitecollar.model.applicationStatus;
+package cs425.whitecollar.model.application.applicationStatus;
 
 public enum ApplicationStatus {
     IN_REVIEW,

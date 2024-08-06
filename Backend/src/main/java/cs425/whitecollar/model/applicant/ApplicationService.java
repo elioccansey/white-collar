@@ -7,4 +7,6 @@ import java.security.Principal;
 
 public interface ApplicationService {
     ApplicationDTO applyForJob(Principal principal, ApplicationDTO applicationDTO);
+
+    ApplicationDTO cancelApplication(Principal principal, Long applicantId);
 }
