@@ -1,11 +1,9 @@
 package cs425.whitecollar.model.job;
 
-import cs425.whitecollar.model.applicant.Applicant;
-import cs425.whitecollar.model.user.User;
+import cs425.whitecollar.entity.Job;
 import lombok.Data;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class JobDTO {

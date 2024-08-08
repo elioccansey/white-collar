@@ -1,5 +1,6 @@
 package cs425.whitecollar.model.address;
 
+import cs425.whitecollar.entity.Address;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
