@@ -1,5 +1,6 @@
 package cs425.whitecollar.model.application;
 
+import cs425.whitecollar.entity.Application;
 import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
 import lombok.Data;
 

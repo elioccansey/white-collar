@@ -1,10 +1,9 @@
 package cs425.whitecollar.model.job;
 
-import cs425.whitecollar.model.applicant.Applicant;
+import cs425.whitecollar.entity.Job;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class JobDTOMapper implements Function<Job, JobDTO> {
