@@ -5,7 +5,7 @@ import cs425.whitecollar.model.user.role.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +30,7 @@ public class User {
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<UserRole> roles;
+    private Set<UserRole> roles;
 
     @OneToOne
     private Address address;
