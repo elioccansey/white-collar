@@ -36,6 +36,7 @@ public class SecurityConfig  {
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/login").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(uds)

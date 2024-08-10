@@ -36,7 +36,7 @@ public class WcUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-       Optional<User> userResOpt = userRepository.findByEmail(email);// client.fetchUser(email);
+       Optional<User> userResOpt = userRepository.findByEmail(email);
         if(userResOpt.isEmpty()){
             LOGGER.info("Could not findUser with email = " + email);
             throw new UsernameNotFoundException("Could not findUser with email = " + email);}
