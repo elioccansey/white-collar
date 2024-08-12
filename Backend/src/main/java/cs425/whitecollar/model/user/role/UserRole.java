@@ -5,26 +5,28 @@ import cs425.whitecollar.model.user.User;
 //import cs425.whitecollar.previlege.Privilege;
 import cs425.whitecollar.previlege.Privilege;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Collection;
 
 @Entity
 @Table(name="roles")
+@Data
 public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
-    private Collection<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    @JsonBackReference
+//    private Collection<User> users;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_privileges",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "roles_privileges",
+//            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+//    private Collection<Privilege> privileges;
 
     private String name;
     private String description;
@@ -38,47 +40,7 @@ public class UserRole {
         this.name = name;
     }
 
-    //
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final Collection<User> users) {
-        this.users = users;
-    }
-
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(final Collection<Privilege> privileges) {
-        this.privileges = privileges;
-    }
 
     @Override
     public int hashCode() {
