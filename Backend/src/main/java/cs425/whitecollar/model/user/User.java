@@ -5,7 +5,6 @@ import cs425.whitecollar.model.user.role.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -53,7 +52,7 @@ public class User {
         else {
             UserRole role = new UserRole();
             role.setName("ROLE_APPLICANT");
-            role.setDescription("Employer role");
+            role.setDescription("Applicant role");
             user.setRoles(Set.of(role));
         }
         return user;

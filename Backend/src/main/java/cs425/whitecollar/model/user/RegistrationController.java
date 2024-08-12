@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping()
+@RequestMapping("register")
 public class RegistrationController {
 
     @Autowired
     UserServiceImpl userService;
 
-    @PostMapping("register/employer")
+    @PostMapping("employer")
     public ResponseEntity<ResponseDto> registerEmployer(@RequestBody UserRegisterationDTO userRegisterationDTO) {
         ResponseDto responseDto = userService.register(userRegisterationDTO, true);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
@@ -24,7 +24,7 @@ public class RegistrationController {
     }
 
 
-    @PostMapping("register/applicant")
+    @PostMapping("applicant")
     public ResponseEntity<ResponseDto> registerApplicant(@RequestBody UserRegisterationDTO userRegisterationDTO) {
         ResponseDto responseDto = userService.register(userRegisterationDTO, false);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);

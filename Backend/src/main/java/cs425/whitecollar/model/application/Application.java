@@ -1,10 +1,9 @@
 package cs425.whitecollar.model.application;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import cs425.whitecollar.model.address.Address;
-import cs425.whitecollar.model.applicant.Applicant;
 import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
 import cs425.whitecollar.model.job.Job;
+import cs425.whitecollar.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +23,7 @@ public class Application {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "applicant_id")
-    private Applicant applicant;
+    private User applicant;
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Job job;
@@ -33,7 +32,7 @@ public class Application {
     private LocalDate applicationDate;
 
 
-    public Application(Applicant applicant, Job job, ApplicationStatus applicationStatus, LocalDate applicationDate) {
+    public Application(User applicant, Job job, ApplicationStatus applicationStatus, LocalDate applicationDate) {
         this.applicant = applicant;
         this.job = job;
         this.applicationStatus = applicationStatus;

@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,8 +36,9 @@ public class SecurityConfig  {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/login").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/login/**", "/register/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs").hasAnyRole("EMPLOYER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs/**").hasAnyRole("APPLICANT", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(uds)

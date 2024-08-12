@@ -1,11 +1,10 @@
 package cs425.whitecollar.model.user;
 
-import cs425.whitecollar.model.user.role.ResponseDto;
+import cs425.whitecollar.model.user.role.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
-    UserServiceImpl userService;
+    AuthService authService;
 
     @PostMapping()
-    public ResponseEntity<ResponseDto> registerEmployer(@RequestParam("email") String email, @RequestParam("password") String password) {
-        ResponseDto responseDto = userService.register(userRegisterationDTO, true);
+    public ResponseEntity<LoginResponse> registerEmployer(@RequestParam("email") String email, @RequestParam("password") String password) {
+        LoginResponse responseDto = authService.handleLogin(email, password);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
 
     }

@@ -2,6 +2,7 @@ package cs425.whitecollar.model.user;
 
 import cs425.whitecollar.model.user.role.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,27 +13,29 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public ResponseDto register(UserRegisterationDTO userRegisterationDTO, boolean isEmployer) {
+
+        if (getUserByEmail(userRegisterationDTO.email()).isPresent()){
+            return new ResponseDto(-1, "Email already exist", 0);
+        }
         User user = User.getInstance(userRegisterationDTO, isEmployer);
+        encodePassword(user);
         User savedUser = userRepo.save(user);
         return new ResponseDto(0, "Success", savedUser.getUserId());
     }
 
-    @Override
-    public ResponseDto authenticate(String email, String password) {
-        Optional<User> user = userRepo.findByEmail(email);
-        if (user.isEmpty()) {
-            return new ResponseDto(0, "Invalid email or password", 0);
-        }
-        else if (!user.get().getPassword().equals(password)) {
-            return new ResponseDto(0, "Invalid password", 0);
-        }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 
-
-        User savedUser = userRepo.save(user);
-        return new ResponseDto(0, "Success", savedUser.getUserId());
+    private void encodePassword(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
     }
 }
