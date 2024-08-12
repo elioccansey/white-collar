@@ -1,5 +1,7 @@
 package cs425.whitecollar.model.application;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import cs425.whitecollar.model.address.Address;
 import cs425.whitecollar.model.applicant.Applicant;
 import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
 import cs425.whitecollar.model.job.Job;
@@ -19,6 +21,7 @@ public class Application {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long applicationId;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "applicant_id")
     private Applicant applicant;
@@ -28,4 +31,12 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
     private LocalDate applicationDate;
+
+
+    public Application(Applicant applicant, Job job, ApplicationStatus applicationStatus, LocalDate applicationDate) {
+        this.applicant = applicant;
+        this.job = job;
+        this.applicationStatus = applicationStatus;
+        this.applicationDate = applicationDate;
+    }
 }

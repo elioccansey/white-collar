@@ -1,5 +1,7 @@
 package cs425.whitecollar.model.job;
 
+import cs425.whitecollar.model.job.dto.JobRequestDTO;
+import cs425.whitecollar.model.job.dto.JobResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +19,19 @@ public class JobController {
 
 
     @GetMapping
-    public ResponseEntity<Collection<JobDTO>> getAllJobs() {
+    public ResponseEntity<Collection<JobResponseDTO>> getAllJobs() {
         return new ResponseEntity<>(jobService.getAllJobs(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<JobDTO> addJob(@RequestBody Job job) {
-        JobDTO jobDTO = jobService.addJob(job);
+    public ResponseEntity<JobResponseDTO> addJob(@RequestBody JobRequestDTO jobRequestDTO) {
+        JobResponseDTO jobDTO = jobService.addJob(jobRequestDTO);
         return new ResponseEntity<>(jobDTO, HttpStatus.CREATED);
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<JobDTO> getJob(@PathVariable("id") Long id) {
+    public ResponseEntity<JobResponseDTO> getJob(@PathVariable("id") Long id) {
         return jobService.getJobById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
@@ -37,11 +39,16 @@ public class JobController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<JobDTO> deleteJob(@PathVariable Long id) {
-        Optional<JobDTO> deletedReviewOpt = jobService.delete(id);
+    public ResponseEntity<JobResponseDTO> deleteJob(@PathVariable Long id) {
+        Optional<JobResponseDTO> deletedReviewOpt = jobService.delete(id);
         return deletedReviewOpt
                 .map(deletedReview -> new ResponseEntity<>(deletedReview, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/employers/{employerId}")
+    public ResponseEntity<Collection<JobResponseDTO>> getAllJobsByEmployerId(@PathVariable Long employerId) {
+        return new ResponseEntity<>(jobService.getAllJobsByEmployerId(employerId), HttpStatus.OK);
     }
 
 
@@ -51,7 +58,7 @@ public class JobController {
         return new ResponseEntity<>("Application submitted successfully.", HttpStatus.OK);
     }
 
-    @DeleteMapping("/{jobId}/cancel/{applicantId}")
+    @PostMapping("/{jobId}/cancel/{applicantId}")
     public ResponseEntity<String> cancelApplication(@PathVariable Long jobId, @PathVariable Long applicantId) {
         jobService.cancelApplication(jobId, applicantId);
         return new ResponseEntity<>("Application canceled successfully.", HttpStatus.OK);

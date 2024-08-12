@@ -2,6 +2,7 @@ package cs425.whitecollar.model.user.role;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import cs425.whitecollar.model.user.User;
+//import cs425.whitecollar.previlege.Privilege;
 import cs425.whitecollar.previlege.Privilege;
 import jakarta.persistence.*;
 

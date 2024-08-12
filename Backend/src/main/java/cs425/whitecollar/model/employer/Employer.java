@@ -18,6 +18,11 @@ public class Employer extends User {
     private String employerName;
     private String employerInfo;
 
-    @OneToMany(mappedBy = "employer")
+    @OneToMany(mappedBy = "employer", fetch = FetchType.EAGER)
     private List<Job> jobs;
+
+    public Employer(String employerName, String employerInfo) {
+        this.employerName=employerName;
+        this.employerInfo=employerInfo;
+    }
 }

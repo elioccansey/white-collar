@@ -1,5 +1,6 @@
 package cs425.whitecollar.model.job;
 
+import cs425.whitecollar.model.application.Application;
 import cs425.whitecollar.model.employer.Employer;
 import cs425.whitecollar.model.applicant.Applicant;
 import cs425.whitecollar.model.user.User;
@@ -18,7 +19,7 @@ import java.util.List;
 public class Job {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long jobId;
+    private Integer jobId;
     private String jobTitle;
     private double yearsOfExperience;
     private String location;
@@ -38,10 +39,25 @@ public class Job {
     @Column(name = "benefit")
     private List<String> benefits;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employer_id")
     private User employer;
 
-    @ManyToMany(mappedBy = "jobs")
-    private List<Applicant> applicants;
+//    @ManyToMany(mappedBy = "jobs")
+//    private List<Applicant> applicants;
+
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+    private List<Application> applications;
+
+    public Job(Integer jobId, String jobTitle, double yearsOfExperience, String location, double jobSalary, List<String> requireTechnicalSkills, List<String> requireSoftSkills, List<String> benefits, User employer) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.yearsOfExperience = yearsOfExperience;
+        this.location = location;
+        this.jobSalary = jobSalary;
+        this.requireTechnicalSkills = requireTechnicalSkills;
+        this.requireSoftSkills = requireSoftSkills;
+        this.benefits = benefits;
+        this.employer = employer;
+    }
 }
