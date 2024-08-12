@@ -1,22 +1,24 @@
 package cs425.whitecollar.model.job;
 
-import aj.org.objectweb.asm.commons.Remapper;
+import cs425.whitecollar.model.job.dto.JobRequestDTO;
+import cs425.whitecollar.model.job.dto.JobResponseDTO;
 
-import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
 
 public interface JobService {
 
-    public Optional<JobDTO> delete(Long id);
+    public Optional<JobResponseDTO> delete(Long id);
 
-    public  Collection<JobDTO> getAllJobs();
+    public  Collection<JobResponseDTO> getAllJobs();
 
-    public Optional<JobDTO> getJobById(Long id);
+    public Optional<JobResponseDTO> getJobById(Long id);
 
-    JobDTO addJob(Job job);
+    JobResponseDTO addJob(JobRequestDTO jobRequestDTO);
 
     void cancelApplication(Long jobId, Long applicantId);
 
     void applyForJob(Long jobId, Long applicantId);
+
+    Collection<JobResponseDTO> getAllJobsByEmployerId(Long employerId);
 }

@@ -8,7 +8,7 @@ import java.util.function.Function;
 public class AddressDTOMapper implements Function<Address, AddressDTO> {
     @Override
     public AddressDTO apply(Address address) {
-        return new AddressDTO(address.getId(),
+        return new AddressDTO(
                 address.getStreet(),
                 address.getCity(),
                 address.getState(),
