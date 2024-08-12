@@ -34,4 +34,27 @@ public class User {
 
     @OneToOne
     private Address address;
+
+
+
+    public static User getInstance(UserRegisterationDTO userRegisterationDTO, boolean isEmployer){
+        User user = new User();
+        user.setEmail(userRegisterationDTO.email());
+        user.setPassword(userRegisterationDTO.password());
+        user.setFirstName(userRegisterationDTO.firstName());
+        user.setLastName(userRegisterationDTO.lastName());
+        if (isEmployer){
+            UserRole role = new UserRole();
+            role.setName("ROLE_EMPLOYER");
+            role.setDescription("Employer role");
+            user.setRoles(Set.of(role));
+        }
+        else {
+            UserRole role = new UserRole();
+            role.setName("ROLE_APPLICANT");
+            role.setDescription("Applicant role");
+            user.setRoles(Set.of(role));
+        }
+        return user;
+    }
 }

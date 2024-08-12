@@ -1,6 +1,5 @@
 package cs425.whitecollar.model.job;
 
-import cs425.whitecollar.model.applicant.Applicant;
 import cs425.whitecollar.model.application.Application;
 import cs425.whitecollar.model.application.ApplicationRepository;
 import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
@@ -83,11 +82,12 @@ public class JobServiceImpl implements JobService {
     public void applyForJob(Long jobId, Long applicantId) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
-        User applicant = userRepository.findById(applicantId)
+        User user = userRepository.findById(applicantId)
                 .orElseThrow(() -> new RuntimeException("Applicant not found"));
 
+
         Application application=new Application(
-                (Applicant) applicant,
+               user,
                 job,
                 ApplicationStatus.IN_REVIEW,
                 LocalDate.now()
