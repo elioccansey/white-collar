@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, FormControl, Stack, TextField } from "@mui/material";
+import { login } from "../apiService/services/auth";
 
 const Login = () => {
   const initialState = {
@@ -7,9 +9,21 @@ const Login = () => {
     password: "",
   };
   const [state, setState] = useState(initialState);
+  const navigate = useNavigate();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
+    try {
+      await login(state);
+      setState(initialState);
+      navigate("/job-listings");
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
@@ -27,6 +41,7 @@ const Login = () => {
         id="margin-normal"
         margin="normal"
         name="password"
+        type="password"
         value={state.password}
         onChange={handleOnChange}
       />
@@ -38,6 +53,7 @@ const Login = () => {
         <Button
           variant="contained"
           sx={{ bgcolor: "#5964E0", color: "white", width: "50%" }}
+          onClick={(e) => handleLogin(e)}
         >
           Login
         </Button>

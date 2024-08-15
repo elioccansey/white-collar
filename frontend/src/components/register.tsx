@@ -10,6 +10,10 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import {
+  applicantRegistration,
+  employerRegistration,
+} from "../apiService/services/auth";
 
 type Props = {
   setIsRegistering: (value: boolean) => void;
@@ -26,6 +30,21 @@ const Register = ({ setIsRegistering }: Props) => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const handleRegistration = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (radioButtonState === "applicant") {
+        await applicantRegistration(state);
+      } else {
+        await employerRegistration(state);
+      }
+      setState(initialState);
+      setIsRegistering(false);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
@@ -60,6 +79,7 @@ const Register = ({ setIsRegistering }: Props) => {
         id="margin-normal"
         margin="normal"
         name="password"
+        type="password"
         value={state.password}
         onChange={handleOnChange}
       />
@@ -109,6 +129,7 @@ const Register = ({ setIsRegistering }: Props) => {
         </span>
 
         <Button
+          onClick={(e) => handleRegistration(e)}
           variant="contained"
           sx={{ bgcolor: "#5964E0", color: "white", width: "50%" }}
         >
