@@ -1,9 +1,7 @@
 package cs425.whitecollar.model.job.dto;
 
 
-import cs425.whitecollar.model.employer.Employer;
 import cs425.whitecollar.model.job.Job;
-import cs425.whitecollar.model.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
@@ -24,11 +22,7 @@ public class JobRequestToJobDTOMapper implements Function<JobRequestDTO, Job> {
                 jobRequestDTO.jobSalary(),
                 jobRequestDTO.requireTechnicalSkills(),
                 jobRequestDTO.requireSoftSkills(),
-                jobRequestDTO.benefits(),
-                new Employer(
-                        jobRequestDTO.employer().employerName(),
-                        jobRequestDTO.employer().employerInfo()
-                )
+                jobRequestDTO.benefits()
         );
     }
 }

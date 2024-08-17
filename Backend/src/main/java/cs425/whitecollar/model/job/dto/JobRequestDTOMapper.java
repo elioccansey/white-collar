@@ -36,8 +36,8 @@ public class JobRequestDTOMapper implements Function<Job, JobRequestDTO> {
             job.getJobSalary(),
             job.getRequireTechnicalSkills(),
             job.getRequireSoftSkills(),
-            job.getBenefits(),
-            employerRequestDTO);
+            job.getBenefits()
+    );
     }
 
     @Override

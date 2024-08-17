@@ -37,8 +37,8 @@ public class SecurityConfig  {
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login/**", "/register/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs").hasAnyRole("EMPLOYER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs/**").hasAnyRole("APPLICANT", "ADMIN")
+//                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs").hasAnyRole("EMPLOYER", "ADMIN")
+//                        .requestMatchers(HttpMethod.POST,"/api/v1/jobs/**").hasAnyRole("APPLICANT", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(uds)

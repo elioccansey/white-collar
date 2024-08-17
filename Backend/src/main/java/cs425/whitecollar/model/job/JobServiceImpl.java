@@ -3,16 +3,17 @@ package cs425.whitecollar.model.job;
 import cs425.whitecollar.model.application.Application;
 import cs425.whitecollar.model.application.ApplicationRepository;
 import cs425.whitecollar.model.application.applicationStatus.ApplicationStatus;
-import cs425.whitecollar.model.employer.Employer;
 import cs425.whitecollar.model.job.dto.*;
 import cs425.whitecollar.model.user.User;
 import cs425.whitecollar.model.user.UserRepository;
+import cs425.whitecollar.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,9 @@ public class JobServiceImpl implements JobService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private SecurityService securityService;
+
     @Override
     public Collection<JobResponseDTO> getAllJobs() {
         return jobRepository.findAll().stream().map(jobResponseDTOMapper)
@@ -46,7 +50,10 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public JobResponseDTO addJob(JobRequestDTO jobRequestDTO) {
+        Optional<User> user = userRepository.findByEmail(securityService.authenticatedUser());
+
         Job job = jobRequestToJobDTOMapper.apply(jobRequestDTO);
+        job.setEmployer(user.get());
         Job savedJob = jobRepository.save(job);
         return jobResponseDTOMapper.apply(savedJob);
     }
@@ -66,17 +73,15 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Collection<JobResponseDTO> getAllJobsByEmployerId(Long employerId) {
-        return userRepository.findById(employerId)
-                .filter(user -> user.getRoles().stream()
-                        .anyMatch(role -> "ROLE_EMPLOYER".equals(role.getName())))
-                .map(user -> (Employer) user)
-                .map(Employer::getJobs)
-                .orElseThrow(() -> new RuntimeException("Employer not found or does not have the role of EMPLOYER"))
-                .stream()
-                .map(jobResponseDTOMapper)
-                .collect(Collectors.toList());
-    }
 
+        Optional<User> user = userRepository.findById(employerId);
+        if (user.isEmpty()) {
+            throw new RuntimeException("Employer not found or does not have the role of EMPLOYER");
+        }
+        List<Job> jobList = jobRepository.findAllByEmployer(user.get());
+        return jobList.stream().map(jobResponseDTOMapper).collect(Collectors.toList());
+
+    }
 
 
     public void applyForJob(Long jobId, Long applicantId) {
@@ -86,8 +91,8 @@ public class JobServiceImpl implements JobService {
                 .orElseThrow(() -> new RuntimeException("Applicant not found"));
 
 
-        Application application=new Application(
-               user,
+        Application application = new Application(
+                user,
                 job,
                 ApplicationStatus.IN_REVIEW,
                 LocalDate.now()

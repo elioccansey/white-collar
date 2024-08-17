@@ -60,4 +60,15 @@ public class Job {
         this.benefits = benefits;
         this.employer = employer;
     }
+
+    public Job(Integer jobId, String jobTitle, double yearsOfExperience, String location, double jobSalary, List<String> requireTechnicalSkills, List<String> requireSoftSkills, List<String> benefits) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.yearsOfExperience = yearsOfExperience;
+        this.location = location;
+        this.jobSalary = jobSalary;
+        this.requireTechnicalSkills = requireTechnicalSkills;
+        this.requireSoftSkills = requireSoftSkills;
+        this.benefits = benefits;
+    }
 }
