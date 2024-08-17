@@ -14,4 +14,8 @@ public record JobRequestDTO(
         List<String> requireSoftSkills,
         List<String> benefits,
         EmployerRequestDTO employer
-){ }
+){
+    public JobRequestDTO(String jobTitle) {
+        this(jobTitle, "", 0, 0, List.of(), List.of(), List.of(), null);
+    }
+}

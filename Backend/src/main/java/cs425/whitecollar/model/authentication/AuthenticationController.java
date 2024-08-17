@@ -1,4 +1,4 @@
-package cs425.whitecollar.model.user;
+package cs425.whitecollar.model.authentication;
 
 import cs425.whitecollar.model.user.role.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;

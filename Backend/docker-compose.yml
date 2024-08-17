@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  gm-user-service:
+    container_name: white-collar-container
+    image: cs425/white-collar-service
+    build: ./
+    restart: on-failure
+    ports:
+      - "8011:8011"
+    environment:
+      WAIT_HOSTS: postgres:5438
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    container_name: white-collar-postgres-container
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5438:5438"
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=whitecollar
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d

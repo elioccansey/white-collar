@@ -1,6 +1,8 @@
-package cs425.whitecollar.model.user;
+package cs425.whitecollar.model.authentication;
 
 
+import cs425.whitecollar.model.user.User;
+import cs425.whitecollar.model.user.UserService;
 import cs425.whitecollar.model.user.role.LoginResponse;
 import cs425.whitecollar.security.JWTUtil;
 import org.slf4j.Logger;
