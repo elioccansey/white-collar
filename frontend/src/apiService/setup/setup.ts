@@ -1,4 +1,4 @@
-import {checkTokens} from './token';
+import {checkTokens} from './user';
 
 export default function setup() {
     checkTokens();
