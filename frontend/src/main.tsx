@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home-page.tsx";
 import JobListingsPage from "./pages/job-listings-page.tsx";
+import EmployerJobListingsPage from "./pages/employer-job-listings-page.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "job-listings", element: <JobListingsPage /> },
+      {
+        path: "job-listings-employer/:id",
+        element: <EmployerJobListingsPage />,
+      },
     ],
   },
 ]);

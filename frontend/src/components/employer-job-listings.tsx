@@ -3,23 +3,28 @@ import jobListingsData from "../data";
 import JobCard from "./job-card";
 import SearchBar from "./search-bar";
 import { useEffect, useState } from "react";
-import { getAllJobs } from "../apiService/services/jobs";
+import { getAllEmployerJobs } from "../apiService/services/jobs";
+import { getUser } from "../apiService/setup/user";
+import BusinessIcon from "@mui/icons-material/Business";
 
-const JobListings = () => {
+const EmployerJobListings = () => {
   const [state, setState] = useState();
+  const profile = JSON.parse(getUser().user);
 
   useEffect(() => {
-    getJobs();
+    getEmployerJobs();
   }, []);
 
-  const getJobs = async () => {
+  const getEmployerJobs = async () => {
     try {
-      const result = await getAllJobs();
+      const result = await getAllEmployerJobs(profile.user.userId);
       setState(result);
     } catch (error) {
       console.log("error:", error);
     }
   };
+
+  console.log("results---employer", state);
   return (
     <Box
       sx={{
@@ -65,4 +70,4 @@ const JobListings = () => {
   );
 };
 
-export default JobListings;
+export default EmployerJobListings;

@@ -1,6 +1,5 @@
 import { styled } from "@mui/material";
 import JobListings from "../components/job-listing";
-
 const JobListingsPage = () => {
   return (
     <Wrapper>

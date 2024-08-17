@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import {getTokens, setTokens} from './token';
+import {getUser} from './user';
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8077/',
@@ -10,17 +10,17 @@ const apiClient = axios.create({
 });
 
   // TODO: Modify this base on the backend implementation
-const getAccessToken = () => getTokens().accessToken;
-
+const getAccessToken = () => getUser().user;
 
 // Request interceptor to add the access token to headers
 apiClient.interceptors.request.use(
   config => {
-    const token = getAccessToken();
-    if (token !== '' && token != null && token.length > 0) {
+   
+    const configUrl = config.url?.startsWith("/register") || config.url?.startsWith("/login")
+    const token = getAccessToken() && JSON.parse(getAccessToken()).token;
+    if (token !== '' && token != null && token.length > 0 && !configUrl) {
       config.headers['Authorization'] = `Bearer ${token}`;
     } else {
-      // config.headers['Authorization'] = null;
       delete axios.defaults.headers.common['Authorization'];
     }
     return config;
@@ -36,7 +36,7 @@ apiClient.interceptors.response.use(
 
     // TODO: Modify this base on the backend implementation(if there's refresh token to fetch new token in case of expiration)
     if (error.response.status === 401) {
-     console.log("There's no token");
+      console.log("Access Denied");
     }
 
     return Promise.reject(error);

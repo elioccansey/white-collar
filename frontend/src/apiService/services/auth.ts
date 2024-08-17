@@ -1,5 +1,5 @@
 import apiClient from "../setup/axios";
-import { setTokens } from "../setup/token";
+import { setUser } from "../setup/user";
 
 type Registration = {
     firstName: string,
@@ -25,10 +25,17 @@ export const applicantRegistration = async (data:Registration) => {
 
   export const login = async (data:Login) => {
     const res = await  apiClient.post(`/login?email=${data.email}&password=${data.password}`, { });
-
-    console.log("Error: ", res.data);
     if (res.status === 201) {
-        setTokens(res.data.token);
+        const {data} = res;
+        setUser({
+            token: data.token,
+            user: {
+                userId: data.userId,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                role: data.role[0].name
+            }
+        });
     } else {
         console.log("Something went wrong. Please try again later.")
     }
